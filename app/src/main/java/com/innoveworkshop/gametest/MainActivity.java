@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                game.circle.position.y -= 10;
+                game.circle.position.y -= 50;
             }
         });
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                game.circle.position.y += 10;
+                game.circle.position.y += 50;
             }
         });
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                game.circle.position.x -= 10;
+                game.circle.position.x -= 50;
             }
         });
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                game.circle.position.x += 10;
+                game.circle.position.x += 50;
             }
         });
     }
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             if (!circle.isFloored() && !circle.hitRightWall() && !circle.isDestroyed()) {
                 circle.setPosition(circle.position.x + 1, circle.position.y + 1);
             } else {
-                circle.destroy();
+                //circle.destroy();
             }
         }
     }
