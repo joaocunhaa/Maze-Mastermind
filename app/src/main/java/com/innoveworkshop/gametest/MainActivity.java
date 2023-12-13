@@ -78,25 +78,62 @@ public class MainActivity extends AppCompatActivity {
 
     class Game extends GameObject {
         public Circle circle;
-        public Rectangle[] rectangles = new Rectangle[2];
+        public Rectangle[] rectangles = new Rectangle[9];
 
         @Override
         public void onStart(GameSurface surface) {
             super.onStart(surface);
 
             if (circle == null) {
-                circle = new Circle(surface.getWidth() / 2, surface.getHeight() / 2, 100, Color.RED);
+                circle = new Circle(85, surface.getHeight() - 85, 50, Color.GREEN);
                 surface.addGameObject(circle);
             }
 
             if (rectangles[0] == null) {
-                rectangles[0] = new Rectangle(new Vector(surface.getWidth() / 3, surface.getHeight() / 3),
-                        200, 100, Color.GREEN);
+                rectangles[0] = new DroppingRectangle(new Vector(surface.getWidth() / 3, surface.getHeight() / 3),
+                        100, 100, 10, Color.rgb(128, 14, 80));
             }
 
             if (rectangles[1] == null) {
-                rectangles[1] = new DroppingRectangle(new Vector(surface.getWidth() / 3, surface.getHeight() / 3),
-                        100, 100, 10, Color.rgb(128, 14, 80));
+                rectangles[1] = new Rectangle(new Vector(surface.getWidth() / 3, surface.getHeight() / 3),
+                        200, 100, Color.RED);
+            }
+
+            // Corner Walls
+            if (rectangles[2] == null) {
+                rectangles[2] = new Rectangle(new Vector(0, surface.getHeight()),
+                        surface.getWidth() * 2, 75, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[3] == null) {
+                rectangles[3] = new Rectangle(new Vector(0, 0),
+                        surface.getWidth() * 2, 75, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[4] == null) {
+                rectangles[4] = new Rectangle(new Vector(0, 0),
+                        75, surface.getHeight() * 2, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[5] == null) {
+                rectangles[5] = new Rectangle(new Vector(surface.getWidth(), 0),
+                        75, surface.getHeight() * 2, Color.rgb(102, 51, 0));
+            }
+
+            // Walls
+            if (rectangles[6] == null) {
+                rectangles[6] = new Rectangle(new Vector(0, surface.getHeight() - 150),
+                        500, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[7] == null) {
+                rectangles[7] = new Rectangle(new Vector(480, surface.getHeight() - 150),
+                        37, 500, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[8] == null) {
+                rectangles[8] = new Rectangle(new Vector(360, surface.getHeight() - 380),
+                        37, 500, Color.rgb(102, 51, 0));
             }
 
             // For loop to draw each rectangle
