@@ -11,6 +11,7 @@ import android.widget.Button;
 public class StartMenu extends AppCompatActivity {
 
     private Button startGame;
+    private Button quitGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +21,17 @@ public class StartMenu extends AppCompatActivity {
         startGame = (Button) findViewById(R.id.startGame);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.d("PLAY BUTTON", "started game");
                 Intent intent = new Intent(StartMenu.this, MainActivity.class);
                 startActivity(intent);
-                Log.d("PLAY BUTTON", "started a game");
+            }
+        });
+
+        quitGame = (Button) findViewById(R.id.quitButton);
+        quitGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("QUIT BUTTON", "quit game");
+                finish();
             }
         });
     }
