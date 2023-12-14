@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     boolean movingRight = false;
     boolean movingLeft = false;
     int playerSpeed = 20;
+    boolean restart = false;
 
     public enum CollisionSide {
         TOP, BOTTOM, LEFT, RIGHT, NONE
@@ -78,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
     class Game extends GameObject {
         public Circle circle;
-        public Rectangle[] rectangles = new Rectangle[7];
-        public BounceRectangle[] bounceRectangles = new BounceRectangle[1];
+        public Rectangle[] rectangles = new Rectangle[16];
+        public BounceRectangle[] bounceRectangles = new BounceRectangle[2];
         public HoleCircle[] holeCircles = new HoleCircle[1];
 
         @Override
@@ -116,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
             // Walls
             if (rectangles[4] == null) {
                 rectangles[4] = new Rectangle(new Vector(0, surface.getHeight() - 150),
-                        500, 37, Color.rgb(102, 51, 0));
+                        425, 37, Color.rgb(102, 51, 0));
             }
 
             if (rectangles[5] == null) {
-                rectangles[5] = new Rectangle(new Vector(480, surface.getHeight() - 150),
+                rectangles[5] = new Rectangle(new Vector(500, surface.getHeight() - 150),
                         37, 500, Color.rgb(102, 51, 0));
             }
 
@@ -129,10 +130,58 @@ public class MainActivity extends AppCompatActivity {
                         37, 500, Color.rgb(102, 51, 0));
             }
 
+            if (rectangles[7] == null) {
+                rectangles[7] = new Rectangle(new Vector(250, surface.getHeight() - 280),
+                        200, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[8] == null) {
+                rectangles[8] = new Rectangle(new Vector(0, surface.getHeight() - 410),
+                        425, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[9] == null) {
+                rectangles[9] = new Rectangle(new Vector(250, surface.getHeight() - 540),
+                        200, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[10] == null) {
+                rectangles[10] = new Rectangle(new Vector(450, surface.getHeight() - 540),
+                        200, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[11] == null) {
+                rectangles[11] = new Rectangle(new Vector(169, surface.getHeight() - 650),
+                        37, 250, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[12] == null) {
+                rectangles[12] = new Rectangle(new Vector(1150, surface.getHeight() - 150),
+                        1000, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[13] == null) {
+                rectangles[13] = new Rectangle(new Vector(360, 150),
+                        37, 150, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[14] == null) {
+                rectangles[14] = new Rectangle(new Vector(980, surface.getHeight() / 2 + 100),
+                        1000, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[15] == null) {
+                rectangles[15] = new Rectangle(new Vector(650, surface.getHeight() - 195),
+                        37, 130, Color.rgb(102, 51, 0));
+            }
+
             // Bounce Walls
             if (bounceRectangles[0] == null) {
-                bounceRectangles[0] = new BounceRectangle(new Vector(0, 200),
-                        surface.getWidth() * 2, 75, Color.BLUE);
+                bounceRectangles[0] = new BounceRectangle(new Vector(0, 56), surface.getWidth() * 2, 37, Color.BLUE);
+            }
+
+            if (bounceRectangles[1] == null) {
+                bounceRectangles[1] = new BounceRectangle(new Vector(250, 400), 200, 37, Color.BLUE);
             }
 
             // Hole Circles
@@ -140,14 +189,14 @@ public class MainActivity extends AppCompatActivity {
                 holeCircles[0] = new HoleCircle(surface.getWidth() / 2, surface.getHeight() / 2, 50, Color.BLACK);
             }
 
-            // For loop to draw each rectangle
-            for (int i = 0; i < rectangles.length; i++) {
-                surface.addGameObject(rectangles[i]);
-            }
-
             // For loop to draw each bounce rectangle
             for (int i = 0; i < bounceRectangles.length; i++) {
                 surface.addGameObject(bounceRectangles[i]);
+            }
+
+            // For loop to draw each rectangle
+            for (int i = 0; i < rectangles.length; i++) {
+                surface.addGameObject(rectangles[i]);
             }
 
             // For loop to draw each hole circle
@@ -244,6 +293,11 @@ public class MainActivity extends AppCompatActivity {
 
             if (movingLeft) { circle.setPosition(circle.position.x - playerSpeed, circle.position.y); }
 
+            // Game Restart
+            if (restart) {
+                Restart();
+            }
+
             // TEST
             if (!circle.isFloored() && !circle.hitRightWall() && !circle.isDestroyed())
             {
@@ -322,14 +376,21 @@ public class MainActivity extends AppCompatActivity {
 
             // If the distance is smaller than the circle radius, the ball collided
             if (distance <= circleRadius) {
-                circle.destroy();
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
+                restart = true;
             }
         }
 
         private float Clamp(float value, float min, float max) {
             return Math.max(min, Math.min(max, value));
+        }
+
+        public void Restart() {
+            Log.d("RESTART", "restarted game");
+            restart = false;
+            circle.destroy();
+            finish();
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 }
