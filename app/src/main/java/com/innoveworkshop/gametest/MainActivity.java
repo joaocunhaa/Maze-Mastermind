@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.innoveworkshop.gametest.engine.BounceRectangle;
@@ -79,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
     class Game extends GameObject {
         public Circle circle;
-        public Rectangle[] rectangles = new Rectangle[16];
+        public Rectangle[] rectangles = new Rectangle[23];
         public BounceRectangle[] bounceRectangles = new BounceRectangle[2];
-        public HoleCircle[] holeCircles = new HoleCircle[1];
+        public HoleCircle[] holeCircles = new HoleCircle[3];
 
         @Override
         public void onStart(GameSurface surface) {
@@ -121,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (rectangles[5] == null) {
-                rectangles[5] = new Rectangle(new Vector(500, surface.getHeight() - 150),
-                        37, 500, Color.rgb(102, 51, 0));
+                rectangles[5] = new Rectangle(new Vector(500, surface.getHeight() - 100),
+                        37, 150, Color.rgb(102, 51, 0));
             }
 
             if (rectangles[6] == null) {
@@ -156,8 +157,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (rectangles[12] == null) {
-                rectangles[12] = new Rectangle(new Vector(1150, surface.getHeight() - 150),
-                        1000, 37, Color.rgb(102, 51, 0));
+                rectangles[12] = new Rectangle(new Vector(750, surface.getHeight() - 150),
+                        190, 37, Color.rgb(102, 51, 0));
             }
 
             if (rectangles[13] == null) {
@@ -166,13 +167,48 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (rectangles[14] == null) {
-                rectangles[14] = new Rectangle(new Vector(980, surface.getHeight() / 2 + 100),
-                        1000, 37, Color.rgb(102, 51, 0));
+                rectangles[14] = new Rectangle(new Vector(1055, surface.getHeight() / 2 + 100),
+                        1125, 37, Color.rgb(102, 51, 0));
             }
 
             if (rectangles[15] == null) {
                 rectangles[15] = new Rectangle(new Vector(650, surface.getHeight() - 195),
                         37, 130, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[16] == null) {
+                rectangles[16] = new Rectangle(new Vector(1600, surface.getHeight() / 2),
+                        37, 170, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[17] == null) {
+                rectangles[17] = new Rectangle(new Vector(900, surface.getHeight() / 2 - 100),
+                        700, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[18] == null) {
+                rectangles[18] = new Rectangle(new Vector(1000, surface.getHeight() / 2 - 190),
+                        37, 180, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[19] == null) {
+                rectangles[19] = new Rectangle(new Vector(750, surface.getHeight() / 2 - 190),
+                        37, 180, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[20] == null) {
+                rectangles[20] = new Rectangle(new Vector(820, surface.getHeight() - 270),
+                        37, 240, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[21] == null) {
+                rectangles[21] = new Rectangle(new Vector(1300, surface.getHeight() - 175),
+                        600, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[22] == null) {
+                rectangles[22] = new Rectangle(new Vector(1200, surface.getHeight() - 100),
+                        37, 150, Color.rgb(102, 51, 0));
             }
 
             // Bounce Walls
@@ -181,12 +217,20 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (bounceRectangles[1] == null) {
-                bounceRectangles[1] = new BounceRectangle(new Vector(250, 400), 200, 37, Color.BLUE);
+                bounceRectangles[1] = new BounceRectangle(new Vector(360, 400), 370, 37, Color.BLUE);
             }
 
             // Hole Circles
             if (holeCircles[0] == null) {
-                holeCircles[0] = new HoleCircle(surface.getWidth() / 2, surface.getHeight() / 2, 50, Color.BLACK);
+                holeCircles[0] = new HoleCircle(surface.getWidth() / 2 + 350, surface.getHeight() / 2, 50, Color.BLACK);
+            }
+
+            if (holeCircles[1] == null) {
+                holeCircles[1] = new HoleCircle(surface.getWidth() / 2, 300, 50, Color.BLACK);
+            }
+
+            if (holeCircles[2] == null) {
+                holeCircles[2] = new HoleCircle(surface.getWidth() / 2 - 50, surface.getHeight() - 95, 50, Color.BLACK);
             }
 
             // For loop to draw each bounce rectangle
@@ -385,7 +429,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void Restart() {
-            Log.d("RESTART", "restarted game");
+            Log.d("RESTART", "restarting game");
+            circle.position.x = -100;
+            circle.position.y = -100;
             restart = false;
             circle.destroy();
             finish();
