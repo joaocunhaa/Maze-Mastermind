@@ -8,32 +8,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class StartMenu extends AppCompatActivity {
+public class EndGameActivity extends AppCompatActivity {
 
     private Button startGame;
-    private Button quitGame;
+    private Button mainMenuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_menu);
+        setContentView(R.layout.activity_end_game);
 
         startGame = (Button) findViewById(R.id.startGame);
         startGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("PLAY BUTTON", "started game");
                 finish();
-                Intent intent = new Intent(StartMenu.this, MainActivity.class);
+                Intent intent = new Intent(EndGameActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
-        quitGame = (Button) findViewById(R.id.quitButton);
-        quitGame.setOnClickListener(new View.OnClickListener() {
+        mainMenuButton = (Button) findViewById(R.id.quitButton);
+        mainMenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("QUIT BUTTON", "quit game");
+                Log.d("MAIN MENU BUTTON", "went back to main menu");
                 finish();
-                System.exit(0);
+                Intent intent = new Intent(EndGameActivity.this, StartMenu.class);
+                startActivity(intent);
             }
         });
     }

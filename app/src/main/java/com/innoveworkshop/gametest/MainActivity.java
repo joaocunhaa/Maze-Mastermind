@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.innoveworkshop.gametest.engine.BounceRectangle;
 import com.innoveworkshop.gametest.engine.Circle;
+import com.innoveworkshop.gametest.engine.EndGameCircle;
 import com.innoveworkshop.gametest.engine.GameObject;
 import com.innoveworkshop.gametest.engine.GameSurface;
 import com.innoveworkshop.gametest.engine.HoleCircle;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     boolean movingLeft = false;
     int playerSpeed = 20;
     boolean restart = false;
+    boolean endGame = false;
 
     public enum CollisionSide {
         TOP, BOTTOM, LEFT, RIGHT, NONE
@@ -80,9 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
     class Game extends GameObject {
         public Circle circle;
-        public Rectangle[] rectangles = new Rectangle[23];
-        public BounceRectangle[] bounceRectangles = new BounceRectangle[2];
-        public HoleCircle[] holeCircles = new HoleCircle[3];
+        public EndGameCircle endGameCircle;
+        public Rectangle[] rectangles = new Rectangle[31];
+        public BounceRectangle[] bounceRectangles = new BounceRectangle[9];
+        public HoleCircle[] holeCircles = new HoleCircle[5];
 
         @Override
         public void onStart(GameSurface surface) {
@@ -92,6 +95,12 @@ public class MainActivity extends AppCompatActivity {
             if (circle == null) {
                 circle = new Circle(85, surface.getHeight() - 85, 50, Color.GREEN);
                 surface.addGameObject(circle);
+            }
+
+            // End Game Circle
+            if (endGameCircle == null) {
+                endGameCircle = new EndGameCircle(2200, 150, 50, Color.MAGENTA);
+                surface.addGameObject(endGameCircle);
             }
 
             // Corner Walls
@@ -167,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (rectangles[14] == null) {
-                rectangles[14] = new Rectangle(new Vector(1055, surface.getHeight() / 2 + 100),
-                        1125, 37, Color.rgb(102, 51, 0));
+                rectangles[14] = new Rectangle(new Vector(1155, surface.getHeight() / 2 + 100),
+                        1325, 37, Color.rgb(102, 51, 0));
             }
 
             if (rectangles[15] == null) {
@@ -211,6 +220,46 @@ public class MainActivity extends AppCompatActivity {
                         37, 150, Color.rgb(102, 51, 0));
             }
 
+            if (rectangles[23] == null) {
+                rectangles[23] = new Rectangle(new Vector(1500, 150),
+                        37, 150, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[24] == null) {
+                rectangles[24] = new Rectangle(new Vector(1525, surface.getHeight() / 2 - 100),
+                        187, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[25] == null) {
+                rectangles[25] = new Rectangle(new Vector(1798, surface.getHeight() / 2 + 202),
+                        37, 240, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[26] == null) {
+                rectangles[26] = new Rectangle(new Vector(2000, surface.getHeight() / 2),
+                        37, 240, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[27] == null) {
+                rectangles[27] = new Rectangle(new Vector(2100, 350),
+                        600, 37, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[28] == null) {
+                rectangles[28] = new Rectangle(new Vector(2175, 800),
+                        37, 400, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[29] == null) {
+                rectangles[29] = new Rectangle(new Vector(1900, 260),
+                        37, 150, Color.rgb(102, 51, 0));
+            }
+
+            if (rectangles[30] == null) {
+                rectangles[30] = new Rectangle(new Vector(2100, 100),
+                        37, 150, Color.rgb(102, 51, 0));
+            }
+
             // Bounce Walls
             if (bounceRectangles[0] == null) {
                 bounceRectangles[0] = new BounceRectangle(new Vector(0, 56), surface.getWidth() * 2, 37, Color.BLUE);
@@ -220,17 +269,53 @@ public class MainActivity extends AppCompatActivity {
                 bounceRectangles[1] = new BounceRectangle(new Vector(360, 400), 370, 37, Color.BLUE);
             }
 
+            if (bounceRectangles[2] == null) {
+                bounceRectangles[2] = new BounceRectangle(new Vector(930, surface.getHeight() - 360), 200, 37, Color.BLUE);
+            }
+
+            if (bounceRectangles[3] == null) {
+                bounceRectangles[3] = new BounceRectangle(new Vector(1490, 150), 37, 150, Color.BLUE);
+            }
+
+            if (bounceRectangles[4] == null) {
+                bounceRectangles[4] = new BounceRectangle(new Vector(1700, surface.getHeight() - 30), 200, 37, Color.BLUE);
+            }
+
+            if (bounceRectangles[5] == null) {
+                bounceRectangles[5] = new BounceRectangle(new Vector(1700, surface.getHeight() - 360), 200, 37, Color.BLUE);
+            }
+
+            if (bounceRectangles[6] == null) {
+                bounceRectangles[6] = new BounceRectangle(new Vector(2195, 370), 360, 37, Color.BLUE);
+            }
+
+            if (bounceRectangles[7] == null) {
+                bounceRectangles[7] = new BounceRectangle(new Vector(2010, 473), 37, 250, Color.BLUE);
+            }
+
+            if (bounceRectangles[8] == null) {
+                bounceRectangles[8] = new BounceRectangle(new Vector(2365, 473), 37, 250, Color.BLUE);
+            }
+
             // Hole Circles
             if (holeCircles[0] == null) {
-                holeCircles[0] = new HoleCircle(surface.getWidth() / 2 + 350, surface.getHeight() / 2, 50, Color.BLACK);
+                holeCircles[0] = new HoleCircle(1500, surface.getHeight() / 2, 50, Color.BLACK);
             }
 
             if (holeCircles[1] == null) {
-                holeCircles[1] = new HoleCircle(surface.getWidth() / 2, 300, 50, Color.BLACK);
+                holeCircles[1] = new HoleCircle(1100, 300, 50, Color.BLACK);
             }
 
             if (holeCircles[2] == null) {
-                holeCircles[2] = new HoleCircle(surface.getWidth() / 2 - 50, surface.getHeight() - 95, 50, Color.BLACK);
+                holeCircles[2] = new HoleCircle(1100, surface.getHeight() - 95, 50, Color.BLACK);
+            }
+
+            if (holeCircles[3] == null) {
+                holeCircles[3] = new HoleCircle(1600, 150, 50, Color.BLACK);
+            }
+
+            if (holeCircles[4] == null) {
+                holeCircles[4] = new HoleCircle(2275, surface.getHeight() - 95, 50, Color.BLACK);
             }
 
             // For loop to draw each bounce rectangle
@@ -255,7 +340,6 @@ public class MainActivity extends AppCompatActivity {
 
             // For loop to detect collisions for each rectangle
             for (int i = 0; i < rectangles.length; i++) {
-
                 CollisionSide temp = GetCollisionSide(circle.position.x, circle.position.y, circle.radius,
                         rectangles[i].position.x, rectangles[i].position.y, rectangles[i].width, rectangles[i].height);
 
@@ -315,7 +399,10 @@ public class MainActivity extends AppCompatActivity {
                 HoleCircleCollision(circle.position.x, circle.position.y, circle.radius, holeCircles[i].position.x, holeCircles[i].position.y);
             }
 
-            // If statements to enable collisions to stop the player
+            // Detect collisions between the player and the end game circle
+            EndGameCircleCollision(circle.position.x, circle.position.y, circle.radius, endGameCircle.position.x, endGameCircle.position.y);
+
+            // If statements to enable collisions with outside walls to stop the player
             if (!circle.hitRoof()) {
             } else { movingUp = false; }
 
@@ -342,19 +429,15 @@ public class MainActivity extends AppCompatActivity {
                 Restart();
             }
 
-            // TEST
-            if (!circle.isFloored() && !circle.hitRightWall() && !circle.isDestroyed())
-            {
-                //circle.setPosition(circle.position.x + 1, circle.position.y + 1);
-
-            } else {
-                //circle.destroy();
+            // End Game
+            if (endGame) {
+                EndGame();
             }
         }
 
         // Rectangles Collisions Function
-        private CollisionSide GetCollisionSide(float circleX, float circleY, float circleRadius,
-                                               float rectX, float rectY, float rectWidth, float rectHeight) {
+        private CollisionSide GetCollisionSide(float circleX, float circleY, float circleRadius, float rectX, float rectY, float rectWidth, float rectHeight)
+        {
             // Calculate the closest point
             float closestX = Clamp(circleX, rectX - rectWidth / 2, rectX + rectWidth / 2);
             float closestY = Clamp(circleY, rectY - rectHeight / 2, rectY + rectHeight / 2);
@@ -369,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
                 float overlapX = circleRadius - Math.abs(distanceX);
                 float overlapY = circleRadius - Math.abs(distanceY);
 
-                // If the overlap y is smaller than the x, the ball collided in the y axis
+                // If the y overlap is smaller than x, the ball collided in the y axis
                 if (overlapX > overlapY) {
                     return (distanceY < 0) ? CollisionSide.TOP : CollisionSide.BOTTOM;
                 }
@@ -382,8 +465,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Bounce Rectangles Collisions Function
-        private CollisionSideBounce GetCollisionSideBounce(float circleX, float circleY, float circleRadius,
-                                               float rectX, float rectY, float rectWidth, float rectHeight) {
+        private CollisionSideBounce GetCollisionSideBounce(float circleX, float circleY, float circleRadius, float rectX, float rectY, float rectWidth, float rectHeight)
+        {
             // Calculate the closest point
             float closestX = Clamp(circleX, rectX - rectWidth / 2, rectX + rectWidth / 2);
             float closestY = Clamp(circleY, rectY - rectHeight / 2, rectY + rectHeight / 2);
@@ -398,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
                 float overlapX = circleRadius - Math.abs(distanceX);
                 float overlapY = circleRadius - Math.abs(distanceY);
 
-                // If the overlap y is smaller than the x, the ball collided in the y axis
+                // If the y overlap is smaller than x, the ball collided in the y axis
                 if (overlapX > overlapY) {
                     return (distanceY < 0) ? CollisionSideBounce.TOP : CollisionSideBounce.BOTTOM;
                 }
@@ -411,8 +494,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Hole Circles Collisions Function
-        private void HoleCircleCollision(float circleX, float circleY, float circleRadius,
-                                               float holeCircleX, float holeCircleY) {
+        private void HoleCircleCollision(float circleX, float circleY, float circleRadius, float holeCircleX, float holeCircleY)
+        {
             // Calculate the distance between the closest point and the ball position
             float distanceX = circleX - holeCircleX;
             float distanceY = circleY - holeCircleY;
@@ -421,6 +504,20 @@ public class MainActivity extends AppCompatActivity {
             // If the distance is smaller than the circle radius, the ball collided
             if (distance <= circleRadius) {
                 restart = true;
+            }
+        }
+
+        // End Game Circle Collisions Function
+        private void EndGameCircleCollision(float circleX, float circleY, float circleRadius, float holeCircleX, float holeCircleY)
+        {
+            // Calculate the distance between the closest point and the ball position
+            float distanceX = circleX - holeCircleX;
+            float distanceY = circleY - holeCircleY;
+            float distance = (float) Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+
+            // If the distance is smaller than the circle radius, the ball collided
+            if (distance <= circleRadius) {
+                endGame = true;
             }
         }
 
@@ -436,6 +533,17 @@ public class MainActivity extends AppCompatActivity {
             circle.destroy();
             finish();
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        public void EndGame() {
+            Log.d("END GAME", "end game circle reached");
+            circle.position.x = -100;
+            circle.position.y = -100;
+            endGame = false;
+            circle.destroy();
+            finish();
+            Intent intent = new Intent(MainActivity.this, EndGameActivity.class);
             startActivity(intent);
         }
     }

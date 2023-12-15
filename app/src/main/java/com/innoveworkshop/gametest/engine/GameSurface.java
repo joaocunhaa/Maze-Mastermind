@@ -54,7 +54,7 @@ public class GameSurface extends SurfaceView {
 
                 // Set up the fixed update timer.
                 timer = new Timer();
-                timer.scheduleAtFixedRate(new FixedUpdateTimer(), 0, 1000 / 60);
+                timer.scheduleAtFixedRate(new FixedUpdateTimer(), 0, 1000 / 30);
             }
 
             @Override
